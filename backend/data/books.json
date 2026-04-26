@@ -1,0 +1,134 @@
+[
+  {
+    "id": "al_mughni",
+    "title_ar": "المغني في فقه الإمام أحمد بن حنبل",
+    "title_en": "Al-Mughni",
+    "author_id": "ibn_qudama",
+    "edition": "الطبعة الثالثة",
+    "publisher": "دار الكتاب العربي",
+    "year": 1983,
+    "total_volumes": 15,
+    "description_ar": "أكبر موسوعة فقهية في المذهب الحنبلي، يعرض المؤلف فيها آراء المذاهب مع أدلتها ومناقشتها. يُعدّ مرجعاً للفقه المقارن."
+  },
+  {
+    "id": "al_insaf",
+    "title_ar": "الإنصاف في معرفة الراجح من الخلاف",
+    "title_en": "Al-Insaf",
+    "author_id": "ibn_qudama",
+    "edition": "الطبعة الأولى",
+    "publisher": "دار إحياء التراث العربي",
+    "year": 1374,
+    "total_volumes": 12,
+    "description_ar": "موسوعة فقهية حنبلية للمرداوي تُرجّح بين الروايات الحنبلية وتُحدّد المذهب الصحيح في كل مسألة."
+  },
+  {
+    "id": "kashaf_al_qina",
+    "title_ar": "كشاف القناع عن متن الإقناع",
+    "title_en": "Kashaf al-Qina",
+    "author_id": "ibn_qudama",
+    "edition": "الطبعة الأولى",
+    "publisher": "دار الكتب العلمية",
+    "year": 1994,
+    "total_volumes": 6,
+    "description_ar": "شرح حنبلي مفصل للبهوتي على متن الإقناع، يُعدّ من أهم المراجع الحنبلية المتأخرة."
+  },
+  {
+    "id": "al_umm",
+    "title_ar": "الأم",
+    "title_en": "Al-Umm",
+    "author_id": "al_shafii",
+    "edition": "الطبعة الثانية",
+    "publisher": "دار المعرفة",
+    "year": 1990,
+    "total_volumes": 8,
+    "description_ar": "الكتاب الفقهي الرئيسي للإمام الشافعي، يضم فروع المذهب الشافعي مع أدلتها وكثيراً من مناقشة آراء الفقهاء الآخرين."
+  },
+  {
+    "id": "al_majmoo",
+    "title_ar": "المجموع شرح المهذب",
+    "title_en": "Al-Majmu' Sharh al-Muhadhdhab",
+    "author_id": "al_nawawi",
+    "edition": "الطبعة الأولى",
+    "publisher": "دار الفكر",
+    "year": 1997,
+    "total_volumes": 23,
+    "description_ar": "موسوعة فقهية شافعية كبرى للنووي، شرح فيها المهذب للشيرازي مع مناقشة آراء سائر المذاهب. لم تكتمل وأكملها ابن السبكي والمطيعي."
+  },
+  {
+    "id": "rawdat_al_talibin",
+    "title_ar": "روضة الطالبين وعمدة المفتين",
+    "title_en": "Rawdat al-Talibin",
+    "author_id": "al_nawawi",
+    "edition": "الطبعة الثالثة",
+    "publisher": "المكتب الإسلامي",
+    "year": 1991,
+    "total_volumes": 12,
+    "description_ar": "مختصر فقهي شافعي للنووي، اختصر فيه شرح الرافعي على الوجيز. يُعدّ من أهم كتب المذهب الشافعي وعمدته."
+  },
+  {
+    "id": "al_mudawwana",
+    "title_ar": "المدونة الكبرى",
+    "title_en": "Al-Mudawwana al-Kubra",
+    "author_id": "malik_ibn_anas",
+    "edition": "الطبعة الأولى",
+    "publisher": "دار الكتب العلمية",
+    "year": 1994,
+    "total_volumes": 6,
+    "description_ar": "أقدم مصنّف فقهي مالكي مكتوب، جمعها سحنون عن ابن القاسم عن الإمام مالك. تُعدّ الأصل الأول للمذهب المالكي في الفروع."
+  },
+  {
+    "id": "bidayat_al_mujtahid",
+    "title_ar": "بداية المجتهد ونهاية المقتصد",
+    "title_en": "Bidayat al-Mujtahid",
+    "author_id": "ibn_rushd_hafid",
+    "edition": "الطبعة السابعة",
+    "publisher": "دار المعرفة",
+    "year": 1997,
+    "total_volumes": 2,
+    "description_ar": "من أهم كتب الفقه المقارن في تاريخ الإسلام. يعرض مسائل الخلاف بين المذاهب مع أدلتها وأسباب الاختلاف بمنهج علمي فريد."
+  },
+  {
+    "id": "al_muntaqa",
+    "title_ar": "المنتقى شرح الموطأ",
+    "title_en": "Al-Muntaqa",
+    "author_id": "malik_ibn_anas",
+    "edition": "الطبعة الأولى",
+    "publisher": "مطبعة السعادة",
+    "year": 1332,
+    "total_volumes": 7,
+    "description_ar": "شرح مالكي للباجي على موطأ الإمام مالك، يُعدّ من أهم شروح الموطأ في المذهب المالكي."
+  },
+  {
+    "id": "al_mabsut",
+    "title_ar": "المبسوط",
+    "title_en": "Al-Mabsut",
+    "author_id": "abu_hanifa",
+    "edition": "الطبعة الأولى",
+    "publisher": "دار المعرفة",
+    "year": 1993,
+    "total_volumes": 30,
+    "description_ar": "أضخم موسوعة فقهية حنفية، صنّفها السرخسي. تُعدّ من أهم مصادر الفقه الحنفي وأوسعها وأكثرها استيعاباً لأدلة المذهب."
+  },
+  {
+    "id": "badai_al_sanai",
+    "title_ar": "بدائع الصنائع في ترتيب الشرائع",
+    "title_en": "Bada'i al-Sana'i",
+    "author_id": "al_kasani",
+    "edition": "الطبعة الثانية",
+    "publisher": "دار الكتب العلمية",
+    "year": 1986,
+    "total_volumes": 7,
+    "description_ar": "موسوعة فقهية حنفية للكاساني، تمتاز بحسن الترتيب وعمق التعليل. تُعدّ من أفضل كتب الفقه الحنفي من حيث المنهجية والاستدلال."
+  },
+  {
+    "id": "al_hidaya",
+    "title_ar": "الهداية في شرح بداية المبتدي",
+    "title_en": "Al-Hidaya",
+    "author_id": "abu_hanifa",
+    "edition": "الطبعة الأولى",
+    "publisher": "دار إحياء التراث العربي",
+    "year": 1995,
+    "total_volumes": 4,
+    "description_ar": "كتاب فقهي حنفي للمرغيناني، يُعدّ من أشهر كتب المذهب الحنفي وأكثرها تداولاً وشرحاً عند فقهاء المذهب."
+  }
+]

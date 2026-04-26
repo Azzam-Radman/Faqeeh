@@ -1,0 +1,123 @@
+[
+  {
+    "id": "abu_hanifa",
+    "name_ar": "أبو حنيفة النعمان بن ثابت",
+    "name_en": "Abu Hanifa al-Nu'man ibn Thabit",
+    "madhab": "hanafi",
+    "birth_year": 80,
+    "death_year": 150,
+    "era": "التابعون",
+    "description_ar": "إمام المذهب الحنفي، ولد بالكوفة، وهو من أشهر علماء الفقه الإسلامي وأئمته. عُرف بسعة علمه وقياسه الدقيق. تتلمذ على يد كثير من التابعين، ورفض قبول منصب القضاء في زمن الدولة العباسية. يُعدّ مؤسس المذهب الحنفي، الأكثر انتشاراً في العالم الإسلامي اليوم.",
+    "description_en": "Founder of the Hanafi school of jurisprudence, born in Kufa. Known for his extensive use of analogical reasoning (qiyas). One of the most followed imams globally."
+  },
+  {
+    "id": "malik_ibn_anas",
+    "name_ar": "مالك بن أنس الأصبحي",
+    "name_en": "Malik ibn Anas al-Asbahi",
+    "madhab": "maliki",
+    "birth_year": 93,
+    "death_year": 179,
+    "era": "التابعون وتابعو التابعين",
+    "description_ar": "إمام دار الهجرة، مؤسس المذهب المالكي. ولد في المدينة المنورة ونشأ فيها. صنّف الموطأ الذي يُعدّ من أصح كتب الحديث. عُرف بتمسكه بعمل أهل المدينة واعتباره حجةً شرعية. تتلمذ على يد نافع وابن شهاب الزهري.",
+    "description_en": "Imam of Medina and founder of the Maliki school. Author of Al-Muwatta, one of the earliest collections of hadith and fiqh."
+  },
+  {
+    "id": "al_shafii",
+    "name_ar": "محمد بن إدريس الشافعي",
+    "name_en": "Muhammad ibn Idris al-Shafi'i",
+    "madhab": "shafii",
+    "birth_year": 150,
+    "death_year": 204,
+    "era": "تابعو التابعين",
+    "description_ar": "مؤسس المذهب الشافعي وعلم أصول الفقه. ولد في غزة وتعلم في مكة والمدينة وبغداد ومصر. صنّف الرسالة في أصول الفقه والأم في الفروع. يُعدّ أول من دوّن أصول الفقه بصورة منهجية. جمع بين مدرستي الحجاز والعراق.",
+    "description_en": "Founder of the Shafi'i school and considered the father of Islamic jurisprudential theory (usul al-fiqh). Author of Al-Risala and Al-Umm."
+  },
+  {
+    "id": "ahmad_ibn_hanbal",
+    "name_ar": "أحمد بن محمد بن حنبل الشيباني",
+    "name_en": "Ahmad ibn Muhammad ibn Hanbal",
+    "madhab": "hanbali",
+    "birth_year": 164,
+    "death_year": 241,
+    "era": "تابعو التابعين",
+    "description_ar": "إمام أهل الحديث ومؤسس المذهب الحنبلي. ولد ببغداد. جمع مسنده الكبير الذي يحتوي على أكثر من ثلاثين ألف حديث. صبر على المحنة التي أوذي فيها بسبب موقفه من مسألة خلق القرآن. عُرف بتمسكه الشديد بالنص وإحجامه عن الرأي.",
+    "description_en": "Founder of the Hanbali school and leading hadith scholar. Author of the Musnad, one of the largest hadith collections. Known for his steadfastness during the Mihna (inquisition)."
+  },
+  {
+    "id": "ibn_qudama",
+    "name_ar": "موفق الدين ابن قدامة المقدسي",
+    "name_en": "Ibn Qudama al-Maqdisi",
+    "madhab": "hanbali",
+    "birth_year": 541,
+    "death_year": 620,
+    "era": "العصر الأيوبي",
+    "description_ar": "فقيه حنبلي موسوعي، ولد في جماعيل قرب نابلس وهاجر إلى دمشق. صنّف المغني وهو أكبر موسوعة فقهية في المذهب الحنبلي، وروضة الناظر في أصول الفقه، والكافي والمقنع والعمدة. يُعدّ مرجعاً أساسياً للمذهب الحنبلي.",
+    "description_en": "Leading Hanbali jurist and encyclopedist. Author of Al-Mughni, the most comprehensive Hanbali fiqh reference."
+  },
+  {
+    "id": "al_nawawi",
+    "name_ar": "يحيى بن شرف النووي",
+    "name_en": "Yahya ibn Sharaf al-Nawawi",
+    "madhab": "shafii",
+    "birth_year": 631,
+    "death_year": 676,
+    "era": "العصر المملوكي",
+    "description_ar": "فقيه شافعي محدّث، ولد في نوى بالشام. صنّف المجموع شرح المهذب وهو موسوعة فقهية لم تكتمل، وروضة الطالبين، ومنهاج الطالبين، ورياض الصالحين في الحديث، والأذكار. يُعدّ مرجعاً رئيسياً للمذهب الشافعي.",
+    "description_en": "Principal Shafi'i jurist and hadith scholar. Author of Al-Majmu', Rawdat al-Talibin, and Riyadh al-Salihin."
+  },
+  {
+    "id": "ibn_rushd",
+    "name_ar": "أبو الوليد محمد بن أحمد ابن رشد القرطبي الجد",
+    "name_en": "Ibn Rushd al-Jadd (the Elder)",
+    "madhab": "maliki",
+    "birth_year": 450,
+    "death_year": 520,
+    "era": "العصر الأندلسي",
+    "description_ar": "فقيه مالكي قاضي القضاة بقرطبة. صنّف البيان والتحصيل شرح العتبية، والمقدمات الممهدات. جدّ الفيلسوف ابن رشد المشهور. يُعدّ مرجعاً أساسياً للفقه المالكي في الأندلس.",
+    "description_en": "Chief Maliki judge of Cordoba, grandfather of the philosopher Averroes. Author of Al-Bayan wa al-Tahsil."
+  },
+  {
+    "id": "ibn_rushd_hafid",
+    "name_ar": "أبو الوليد محمد بن أحمد ابن رشد القرطبي الحفيد",
+    "name_en": "Ibn Rushd (Averroes)",
+    "madhab": "maliki",
+    "birth_year": 520,
+    "death_year": 595,
+    "era": "العصر الأندلسي",
+    "description_ar": "فقيه مالكي وفيلسوف وطبيب، ولد في قرطبة. صنّف بداية المجتهد ونهاية المقتصد وهو من أهم كتب الفقه المقارن في تاريخ الإسلام. جمع فيه آراء المذاهب الفقهية مع أدلتها وأوجه الاختلاف.",
+    "description_en": "Maliki jurist, philosopher, and physician. Author of Bidayat al-Mujtahid, the most systematic comparative fiqh work in Islamic history."
+  },
+  {
+    "id": "al_kasani",
+    "name_ar": "علاء الدين أبو بكر الكاساني",
+    "name_en": "Ala al-Din al-Kasani",
+    "madhab": "hanafi",
+    "birth_year": 510,
+    "death_year": 587,
+    "era": "العصر السلجوقي",
+    "description_ar": "فقيه حنفي بارع، ولد في كاسان بما وراء النهر. صنّف بدائع الصنائع في ترتيب الشرائع وهو من أوسع وأنظم كتب المذهب الحنفي، جمع فيه الفقه مع تعليل الأحكام ومناقشة الأدلة. كان يُلقّب بـ«ملك العلماء».",
+    "description_en": "Hanafi jurist known as 'King of Scholars'. Author of Bada'i al-Sana'i, a comprehensive and systematically organized Hanafi fiqh encyclopedia."
+  },
+  {
+    "id": "ibn_taymiyya",
+    "name_ar": "تقي الدين أحمد بن عبد الحليم ابن تيمية",
+    "name_en": "Ibn Taymiyya",
+    "madhab": "hanbali",
+    "birth_year": 661,
+    "death_year": 728,
+    "era": "العصر المملوكي",
+    "description_ar": "فقيه حنبلي مجتهد وشيخ الإسلام. ولد في حران وانتقل إلى دمشق. عُرف بتجديده وخروجه عن كثير من آراء مذهبه بالدليل. صنّف مجموع الفتاوى ومنهاج السنة النبوية وكثيراً من الرسائل. أثّر تأثيراً بالغاً في الفكر الإسلامي.",
+    "description_en": "Reformist Hanbali jurist titled Shaykh al-Islam. Known for independent legal reasoning and voluminous scholarly output, including Majmu' al-Fatawa."
+  },
+  {
+    "id": "ibn_al_qayyim",
+    "name_ar": "شمس الدين محمد بن أبي بكر ابن قيم الجوزية",
+    "name_en": "Ibn Qayyim al-Jawziyya",
+    "madhab": "hanbali",
+    "birth_year": 691,
+    "death_year": 751,
+    "era": "العصر المملوكي",
+    "description_ar": "فقيه حنبلي وتلميذ ابن تيمية. صنّف زاد المعاد في هدي خير العباد، وإعلام الموقعين عن رب العالمين في أصول الفتوى، والطرق الحكمية في السياسة الشرعية. عُرف بعمق تحليله واتساع علمه.",
+    "description_en": "Hanbali jurist and primary student of Ibn Taymiyya. Author of Zad al-Ma'ad and I'lam al-Muwaqqi'in, both fundamental references in Islamic jurisprudence."
+  }
+]
