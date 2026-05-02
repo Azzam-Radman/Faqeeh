@@ -1,0 +1,15 @@
+[
+  {
+    "id": "seed_1",
+    "book_id": "al_mabsut",
+    "scholar_id": "abu_hanifa",
+    "content": "الأصل في العبادات التوقيف، ولا يثبت منها شيء إلا بدليل صحيح.",
+    "page": 12,
+    "juz": 1,
+    "volume": 1,
+    "chapter": "الطهارة",
+    "section": "مقدمات",
+    "chunk_index": 0,
+    "topic_tags": ["عبادات", "أصول"]
+  }
+]

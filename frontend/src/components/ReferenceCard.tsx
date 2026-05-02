@@ -60,9 +60,9 @@ export default function ReferenceCard({ reference, index, language }: ReferenceC
     madhab === 'shafii' ? t('madhab.shafii') :
     t('madhab.hanbali');
 
-  const bookTitle = isArabic && reference.book_arabic ? reference.book_arabic : reference.book;
-  const scholarName = isArabic && reference.scholar_arabic ? reference.scholar_arabic : (reference.scholar || '');
-  const excerptText = isArabic && reference.excerpt_arabic ? reference.excerpt_arabic : reference.excerpt;
+  const bookTitle = reference.book_title || '';
+  const scholarName = reference.scholar_name || '';
+  const excerptText = reference.text_excerpt;
 
   const hasDetails =
     reference.juz || reference.volume || reference.page ||

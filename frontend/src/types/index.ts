@@ -8,8 +8,8 @@ export type Madhab = 'hanafi' | 'maliki' | 'shafii' | 'hanbali' | 'general';
 
 export interface Scholar {
   id: string;
-  name_arabic: string;
-  name_english: string;
+  name_ar: string;
+  name_en?: string;
   madhab: Madhab;
   era?: string;
   death_year?: string;
@@ -20,23 +20,20 @@ export interface Scholar {
 
 export interface Book {
   id: string;
-  title_arabic: string;
-  title_english?: string;
-  author_arabic?: string;
-  author_english?: string;
-  madhab?: Madhab;
+  title_ar: string;
+  title_en?: string;
+  author_id: string;
+  author_name?: string;
   edition?: string;
   publisher?: string;
-  year?: string;
+  year?: number;
   chunks_count?: number;
   uploaded_at?: string;
 }
 
 export interface Reference {
-  scholar?: string;
-  scholar_arabic?: string;
-  book: string;
-  book_arabic?: string;
+  scholar_name?: string;
+  book_title?: string;
   madhab?: Madhab;
   juz?: string | number;
   volume?: string | number;
@@ -45,8 +42,8 @@ export interface Reference {
   chapter?: string;
   edition?: string;
   publisher?: string;
-  excerpt?: string;
-  excerpt_arabic?: string;
+  text_excerpt?: string;
+  chunk_id?: string;
   relevance_score?: number;
 }
 

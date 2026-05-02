@@ -34,14 +34,23 @@ export default function LibraryPage({ language }: LibraryPageProps) {
   const [madhabFilter, setMadhabFilter] = useState('all');
   const [showUpload, setShowUpload] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [scholarMadhabs, setScholarMadhabs] = useState<Record<string, string>>({});
 
   const font = isArabic ? "'Cairo', sans-serif" : "'Inter', sans-serif";
 
   const fetchBooks = useCallback(async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get('/api/books');
-      setBooks(data.books || []);
+      const [{ data: booksData }, { data: scholarsData }] = await Promise.all([
+        axios.get('/api/books'),
+        axios.get('/api/scholars'),
+      ]);
+      setBooks(booksData.books || []);
+      const map: Record<string, string> = {};
+      (scholarsData.scholars || []).forEach((s: { id: string; madhab: string }) => {
+        map[s.id] = s.madhab;
+      });
+      setScholarMadhabs(map);
     } catch {
       toast.error(isArabic ? 'فشل تحميل الكتب' : 'Failed to load books');
     } finally {
@@ -67,7 +76,7 @@ export default function LibraryPage({ language }: LibraryPageProps) {
       book.title_ar.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (book.title_en || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
       (book.author_name || '').toLowerCase().includes(searchTerm.toLowerCase());
-    const matchMadhab = madhabFilter === 'all' || book.author_id?.includes(madhabFilter);
+    const matchMadhab = madhabFilter === 'all' || scholarMadhabs[book.author_id] === madhabFilter;
     return matchSearch && matchMadhab;
   });
 

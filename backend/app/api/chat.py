@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import json
 import logging
+import os
+import sqlite3
 import uuid
 from datetime import datetime
 from typing import Any, Dict, List, Optional
@@ -19,6 +21,47 @@ router = APIRouter(prefix="/api/chat", tags=["chat"])
 
 # In-memory conversation storage: conversation_id -> List[ChatMessage]
 _conversations: Dict[str, List[ChatMessage]] = {}
+_DB_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "data", "conversations.db")
+
+
+def _init_store() -> None:
+    with sqlite3.connect(_DB_PATH) as conn:
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS conversation_messages (
+                conversation_id TEXT NOT NULL,
+                role TEXT NOT NULL,
+                payload TEXT NOT NULL,
+                timestamp TEXT NOT NULL
+            )
+            """
+        )
+
+
+def _save_message(conversation_id: str, message: ChatMessage) -> None:
+    with sqlite3.connect(_DB_PATH) as conn:
+        conn.execute(
+            "INSERT INTO conversation_messages (conversation_id, role, payload, timestamp) VALUES (?, ?, ?, ?)",
+            (conversation_id, message.role, json.dumps(message.model_dump(), ensure_ascii=False), message.timestamp.isoformat()),
+        )
+
+
+def _load_messages(conversation_id: str) -> List[ChatMessage]:
+    with sqlite3.connect(_DB_PATH) as conn:
+        rows = conn.execute(
+            "SELECT payload FROM conversation_messages WHERE conversation_id = ? ORDER BY timestamp ASC",
+            (conversation_id,),
+        ).fetchall()
+    result: List[ChatMessage] = []
+    for (payload,) in rows:
+        try:
+            result.append(ChatMessage(**json.loads(payload)))
+        except Exception:
+            continue
+    return result
+
+
+_init_store()
 
 
 def _get_pipeline(request: Request) -> Any:
@@ -58,13 +101,9 @@ async def _sse_stream(query: str, conversation_id: str, request: Request):
 
     # Store assistant message in conversation history
     if conversation_id:
-        _conversations.setdefault(conversation_id, []).append(
-            ChatMessage(
-                role="assistant",
-                content=full_text,
-                timestamp=datetime.utcnow(),
-            )
-        )
+        assistant_msg = ChatMessage(role="assistant", content=full_text, timestamp=datetime.utcnow())
+        _conversations.setdefault(conversation_id, _load_messages(conversation_id)).append(assistant_msg)
+        _save_message(conversation_id, assistant_msg)
 
     done_data = json.dumps({"type": "done"}, ensure_ascii=False)
     yield f"data: {done_data}\n\n"
@@ -84,13 +123,9 @@ async def chat_streaming(body: ChatRequest, request: Request):
     conversation_id = body.conversation_id or str(uuid.uuid4())
 
     # Store user message
-    _conversations.setdefault(conversation_id, []).append(
-        ChatMessage(
-            role="user",
-            content=query,
-            timestamp=datetime.utcnow(),
-        )
-    )
+    user_msg = ChatMessage(role="user", content=query, timestamp=datetime.utcnow())
+    _conversations.setdefault(conversation_id, _load_messages(conversation_id)).append(user_msg)
+    _save_message(conversation_id, user_msg)
 
     if body.stream:
         return StreamingResponse(
@@ -116,15 +151,15 @@ async def chat_streaming(body: ChatRequest, request: Request):
     )
     response: ChatResponse = await pipeline.query(chat_request)
 
-    _conversations[conversation_id].append(
-        ChatMessage(
-            role="assistant",
-            content=response.answer,
-            references=response.references,
-            scholars_comparison=response.scholars_comparison,
-            timestamp=datetime.utcnow(),
-        )
+    assistant_msg = ChatMessage(
+        role="assistant",
+        content=response.answer,
+        references=response.references,
+        scholars_comparison=response.scholars_comparison,
+        timestamp=datetime.utcnow(),
     )
+    _conversations[conversation_id].append(assistant_msg)
+    _save_message(conversation_id, assistant_msg)
 
     return response
 
@@ -138,13 +173,9 @@ async def chat_sync(body: ChatRequest, request: Request):
 
     conversation_id = body.conversation_id or str(uuid.uuid4())
 
-    _conversations.setdefault(conversation_id, []).append(
-        ChatMessage(
-            role="user",
-            content=query,
-            timestamp=datetime.utcnow(),
-        )
-    )
+    user_msg = ChatMessage(role="user", content=query, timestamp=datetime.utcnow())
+    _conversations.setdefault(conversation_id, _load_messages(conversation_id)).append(user_msg)
+    _save_message(conversation_id, user_msg)
 
     pipeline = _get_pipeline(request)
     from app.utils.text_utils import detect_language as dl
@@ -158,15 +189,15 @@ async def chat_sync(body: ChatRequest, request: Request):
     )
     response: ChatResponse = await pipeline.query(chat_request)
 
-    _conversations[conversation_id].append(
-        ChatMessage(
-            role="assistant",
-            content=response.answer,
-            references=response.references,
-            scholars_comparison=response.scholars_comparison,
-            timestamp=datetime.utcnow(),
-        )
+    assistant_msg = ChatMessage(
+        role="assistant",
+        content=response.answer,
+        references=response.references,
+        scholars_comparison=response.scholars_comparison,
+        timestamp=datetime.utcnow(),
     )
+    _conversations[conversation_id].append(assistant_msg)
+    _save_message(conversation_id, assistant_msg)
 
     return response
 
@@ -174,7 +205,7 @@ async def chat_sync(body: ChatRequest, request: Request):
 @router.get("/{conversation_id}/history")
 async def get_history(conversation_id: str) -> Dict[str, Any]:
     """Return conversation message history."""
-    messages = _conversations.get(conversation_id, [])
+    messages = _conversations.get(conversation_id, _load_messages(conversation_id))
     return {
         "conversation_id": conversation_id,
         "messages": [m.dict() for m in messages],
@@ -187,4 +218,6 @@ async def clear_conversation(conversation_id: str) -> Dict[str, str]:
     """Clear conversation history for a given ID."""
     if conversation_id in _conversations:
         del _conversations[conversation_id]
+    with sqlite3.connect(_DB_PATH) as conn:
+        conn.execute("DELETE FROM conversation_messages WHERE conversation_id = ?", (conversation_id,))
     return {"status": "ok", "conversation_id": conversation_id}

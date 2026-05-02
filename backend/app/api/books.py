@@ -50,7 +50,11 @@ async def upload_book(
     file: UploadFile = File(...),
     title_ar: Optional[str] = Form(None),
     title_en: Optional[str] = Form(None),
-    author_id: str = Form(...),
+    title_arabic: Optional[str] = Form(None),
+    title_english: Optional[str] = Form(None),
+    author_id: Optional[str] = Form(None),
+    author_arabic: Optional[str] = Form(None),
+    author_english: Optional[str] = Form(None),
     edition: Optional[str] = Form(None),
     publisher: Optional[str] = Form(None),
     year: Optional[int] = Form(None),
@@ -84,10 +88,13 @@ async def upload_book(
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Failed to save file: {exc}")
 
+    resolved_author_id = author_id or "abu_hanifa"
     metadata = {
-        "title_ar": title_ar or os.path.splitext(file.filename)[0],
-        "title_en": title_en,
-        "author_id": author_id,
+        "title_ar": title_ar or title_arabic or os.path.splitext(file.filename)[0],
+        "title_en": title_en or title_english,
+        "author_id": resolved_author_id,
+        "author_arabic": author_arabic,
+        "author_english": author_english,
         "edition": edition,
         "publisher": publisher,
         "year": year,
