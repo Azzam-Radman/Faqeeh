@@ -54,7 +54,11 @@ async def lifespan(app: FastAPI):
     # 3. LLM Service
     from app.services.llm_service import LLMService
 
-    llm_service = LLMService(api_key=settings.ANTHROPIC_API_KEY, model=settings.LLM_MODEL)
+    llm_service = LLMService(
+        api_key=settings.OPENAI_API_KEY,
+        model=settings.LLM_MODEL,
+        base_url=settings.LLM_BASE_URL or None,
+    )
     app.state.llm_service = llm_service
 
     # 4. Book Processor
@@ -178,7 +182,7 @@ async def health() -> HealthResponse:
         services["vector_store"] = {"status": "error", "detail": str(exc)}
 
     services["llm"] = {
-        "status": "ok" if settings.ANTHROPIC_API_KEY else "no_key",
+        "status": "ok" if settings.OPENAI_API_KEY else "no_key",
         "model": settings.LLM_MODEL,
     }
 

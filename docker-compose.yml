@@ -9,14 +9,15 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
       - DATABASE_URL=sqlite+aiosqlite:///./data/kg.db
       - CHROMA_PERSIST_DIR=./data/chroma_db
       - UPLOAD_DIR=./data/uploads
       - CONVERTED_MD_DIR=./data/converted_md
       - BM25_INDEX_PATH=./data/bm25_index.pkl
       - EMBEDDING_MODEL=${EMBEDDING_MODEL:-intfloat/multilingual-e5-small}
-      - CLAUDE_MODEL=${CLAUDE_MODEL:-claude-sonnet-4-6}
+      - LLM_MODEL=${LLM_MODEL:-qwen2.5-72b-instruct}
+      - LLM_BASE_URL=${LLM_BASE_URL:-}
     volumes:
       - backend_data:/app/data
     restart: unless-stopped
