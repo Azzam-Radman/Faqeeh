@@ -37,7 +37,7 @@ export default function ChatInterface({ language, prefillQuestion }: ChatInterfa
   const [includeComparison, setIncludeComparison] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const { messages, isLoading, sendMessage, clearConversation, cancelStreaming } = useChat({ language });
+  const { messages, isLoading, sendMessage, clearConversation, cancelStreaming, loadHistory } = useChat({ language });
 
   const suggestedQuestions = isArabic ? SUGGESTED_QUESTIONS_AR : SUGGESTED_QUESTIONS_EN;
 
@@ -53,6 +53,10 @@ export default function ChatInterface({ language, prefillQuestion }: ChatInterfa
       textareaRef.current?.focus();
     }
   }, [prefillQuestion]);
+
+  useEffect(() => {
+    loadHistory();
+  }, [loadHistory]);
 
   // Auto-resize textarea
   const adjustTextareaHeight = useCallback(() => {

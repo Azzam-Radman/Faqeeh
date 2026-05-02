@@ -8,6 +8,7 @@ interface UseChatOptions {
 
 interface SendMessageOptions {
   includeComparison?: boolean;
+  retries?: number;
 }
 
 export function useChat({ language }: UseChatOptions) {
@@ -58,7 +59,7 @@ export function useChat({ language }: UseChatOptions) {
             query: query.trim(),
             conversation_id: conversationId,
             language,
-            include_comparison: options.includeComparison ?? true,
+            stream: true,
           }),
           signal: controller.signal,
         });
@@ -190,6 +191,10 @@ export function useChat({ language }: UseChatOptions) {
             ? 'حدث خطأ أثناء معالجة سؤالك. يرجى المحاولة مرة أخرى.'
             : 'An error occurred while processing your question. Please try again.';
 
+        if ((options.retries ?? 1) > 0) {
+          await sendMessage(query, { ...options, retries: (options.retries ?? 1) - 1 });
+          return;
+        }
         setMessages(prev =>
           prev.map(msg =>
             msg.id === botMessageId
@@ -213,6 +218,18 @@ export function useChat({ language }: UseChatOptions) {
     setIsLoading(false);
   }, []);
 
+  const loadHistory = useCallback(async () => {
+    const res = await fetch(`/api/chat/${conversationId}/history`);
+    if (!res.ok) return;
+    const data = await res.json();
+    const history = (data.messages || []).map((m: ChatMessage, i: number) => ({
+      ...m,
+      id: `${conversationId}-${i}`,
+      timestamp: new Date(m.timestamp),
+    }));
+    setMessages(history);
+  }, [conversationId]);
+
   const cancelStreaming = useCallback(() => {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
@@ -226,5 +243,6 @@ export function useChat({ language }: UseChatOptions) {
     sendMessage,
     clearConversation,
     cancelStreaming,
+    loadHistory,
   };
 }
