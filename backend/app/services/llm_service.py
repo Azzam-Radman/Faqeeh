@@ -1,11 +1,11 @@
-"""Claude API integration for مساعد الفقيه."""
+"""LLM API integration for مساعد الفقيه (OpenAI-compatible providers, e.g. Qwen API)."""
 
 from __future__ import annotations
 
 import json
 import logging
 import re
-from typing import Any, AsyncGenerator, Dict, List, Optional
+from typing import Any, AsyncGenerator, Dict, List
 
 logger = logging.getLogger(__name__)
 
@@ -67,18 +67,14 @@ Required response structure (JSON):
 
 
 class LLMService:
-    """Handles Claude API calls for fiqh question answering."""
+    """Handles OpenAI-compatible API calls (works with hosted Qwen endpoints)."""
 
-    def __init__(self, api_key: str, model: str = "claude-sonnet-4-6") -> None:
-        import anthropic
+    def __init__(self, api_key: str, model: str, base_url: str | None = None) -> None:
+        from openai import AsyncOpenAI, OpenAI
 
-        self._client = anthropic.Anthropic(api_key=api_key)
-        self._async_client = anthropic.AsyncAnthropic(api_key=api_key)
+        self._client = OpenAI(api_key=api_key, base_url=base_url or None)
+        self._async_client = AsyncOpenAI(api_key=api_key, base_url=base_url or None)
         self.model = model
-
-    # ------------------------------------------------------------------
-    # Public interface
-    # ------------------------------------------------------------------
 
     def generate(
         self,
@@ -87,19 +83,19 @@ class LLMService:
         language: str = "ar",
         stream: bool = False,
     ) -> Dict[str, Any]:
-        """Generate a synchronous response from Claude."""
+        """Generate a synchronous response from an OpenAI-compatible chat API."""
         context = self._format_context(context_chunks)
         messages = self._build_messages(query, context, language)
         system_prompt = _SYSTEM_AR if language == "ar" else _SYSTEM_EN
 
-        response = self._client.messages.create(
+        response = self._client.chat.completions.create(
             model=self.model,
             max_tokens=4096,
-            system=system_prompt,
-            messages=messages,
+            temperature=0.1,
+            messages=[{"role": "system", "content": system_prompt}, *messages],
         )
-        response_text = response.content[0].text if response.content else ""
-        return self._parse_response(response_text)
+        response_text = response.choices[0].message.content if response.choices else ""
+        return self._parse_response(response_text or "")
 
     async def stream_generate(
         self,
@@ -112,21 +108,18 @@ class LLMService:
         messages = self._build_messages(query, context, language)
         system_prompt = _SYSTEM_AR if language == "ar" else _SYSTEM_EN
 
-        async with self._async_client.messages.stream(
+        stream = await self._async_client.chat.completions.create(
             model=self.model,
             max_tokens=4096,
-            system=system_prompt,
-            messages=messages,
-        ) as stream:
-            async for text_chunk in stream.text_stream:
-                yield text_chunk
-
-    # ------------------------------------------------------------------
-    # Helpers
-    # ------------------------------------------------------------------
+            temperature=0.1,
+            messages=[{"role": "system", "content": system_prompt}, *messages],
+            stream=True,
+        )
+        async for chunk in stream:
+            if chunk.choices and chunk.choices[0].delta and chunk.choices[0].delta.content:
+                yield chunk.choices[0].delta.content
 
     def _format_context(self, chunks: List[Dict[str, Any]]) -> str:
-        """Format retrieved chunks with numbered reference labels."""
         if not chunks:
             return "لا توجد مراجع متاحة في قاعدة البيانات لهذا الموضوع."
 
@@ -157,16 +150,11 @@ class LLMService:
                 ref_parts.append(publisher)
 
             ref_str = "، ".join(ref_parts) if ref_parts else "مرجع غير محدد"
-
-            lines.append(
-                f"[{i}] {scholar} — {ref_str}\n{content}\n"
-            )
+            lines.append(f"[{i}] {scholar} — {ref_str}\n{content}\n")
 
         return "\n".join(lines)
 
     def _parse_response(self, response_text: str) -> Dict[str, Any]:
-        """Extract structured answer from Claude's response."""
-        # Try to parse JSON from response
         json_match = re.search(r"\{[\s\S]*\}", response_text)
         if json_match:
             try:
@@ -179,17 +167,9 @@ class LLMService:
             except (json.JSONDecodeError, ValueError):
                 pass
 
-        # Fallback: return raw text as answer
-        return {
-            "answer": response_text,
-            "scholars_comparison": [],
-            "summary": "",
-        }
+        return {"answer": response_text, "scholars_comparison": [], "summary": ""}
 
-    def _build_messages(
-        self, query: str, context: str, language: str
-    ) -> List[Dict[str, str]]:
-        """Build the message list for the Claude API call."""
+    def _build_messages(self, query: str, context: str, language: str) -> List[Dict[str, str]]:
         if language == "ar":
             user_message = (
                 f"السياق الفقهي:\n\n{context}\n\n"
@@ -202,5 +182,4 @@ class LLMService:
                 f"Question: {query}\n\n"
                 "Answer in the JSON format specified, citing reference numbers [1], [2], ... from the context above."
             )
-
         return [{"role": "user", "content": user_message}]

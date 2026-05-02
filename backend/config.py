@@ -11,14 +11,15 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    ANTHROPIC_API_KEY: str = Field(default="", description="Anthropic API key")
+    OPENAI_API_KEY: str = Field(default="", description="API key for OpenAI-compatible LLM provider (e.g., Qwen API)")
     CHROMA_PERSIST_DIR: str = Field(default="./data/chroma", description="ChromaDB persistence directory")
     KG_DB_PATH: str = Field(default="./data/knowledge_graph.db", description="SQLite knowledge graph path")
     EMBEDDING_MODEL: str = Field(default="intfloat/multilingual-e5-small", description="SentenceTransformer model")
     UPLOAD_DIR: str = Field(default="./data/uploads", description="Directory for uploaded files")
     MAX_CHUNK_SIZE: int = Field(default=1000, description="Maximum chunk size in characters")
     CHUNK_OVERLAP: int = Field(default=150, description="Overlap between chunks in characters")
-    LLM_MODEL: str = Field(default="claude-sonnet-4-6", description="Claude model to use")
+    LLM_MODEL: str = Field(default="qwen2.5-72b-instruct", description="LLM model name")
+    LLM_BASE_URL: str = Field(default="", description="Optional base URL for OpenAI-compatible providers")
     MAX_CONTEXT_CHUNKS: int = Field(default=8, description="Maximum chunks to include in LLM context")
     CORS_ORIGINS: list[str] = Field(default=["*"], description="Allowed CORS origins")
 
